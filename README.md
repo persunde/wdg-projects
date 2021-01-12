@@ -43,8 +43,9 @@ Once the Scraper have found a new project, updated the DB and pushed all updates
 
 ## Frontent 
 Will be built using a static site generator like Nextjs, Gatsby or something else. I recommend Nextjs.
-- React with Nextjs / Gatsby?
-- Vue? If people want to use that, then make it. If I have to make the frontend, I will use React.
+- Static Site Generator
+	- React with Nextjs / Gatsby?
+	- Vue? If people want to use that, then make it. If I have to make the frontend, I will use Nextjs.
 - Hosted on GitHub Pages for free hosting
 
 
