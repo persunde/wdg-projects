@@ -19,3 +19,8 @@ Inspired by an /adg/ project found here: http://recap.agdg.io/info
 	- Lets host it on GitHub Pages for free
 	- Setup a CDN?
 	- Buy a proper domain?
+
+
+## Need to get in touch?
+Send me an email at wdg@iloveoss.com 
+- NOTE: it is a forwarding address, so I will reply from another email account
