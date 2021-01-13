@@ -34,9 +34,6 @@ func GetWDGProjectPosts() []types.PostResult {
 	thread, err := FetchThreadWithReplies(threadID)
 
 	postsWithProjectContent := ParseWdgThread(thread)
-	for i, post := range postsWithProjectContent {
-		fmt.Println(i, post)
-	}
 
 	return postsWithProjectContent
 }
@@ -119,13 +116,43 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 	commentList := parseHTMLText(post.Com)
 	for _, line := range commentList {
 		// TODO: check if the comment contains the necessary params here, then add them to postResult
-		postResult.Dev = line
-		postResult.Link = "link test"
-		postResult.Progress = "test progress"
-		postResult.Repo = "test repo"
-		postResult.Title = "test repo"
-		postResult.Tools = "test tooools"
-		foundData = true
+		if strings.Contains(line, "title:") {
+			titleArr := strings.Split(line, "title:")
+			if len(titleArr) > 1 {
+				postResult.Title = titleArr[1]
+				foundData = true
+			}
+		}
+		if strings.Contains(line, "dev:") {
+			devArr := strings.Split(line, "dev:")
+			if len(devArr) > 1 {
+				postResult.Dev = devArr[1]
+			}
+		}
+		if strings.Contains(line, "link:") {
+			linkArr := strings.Split(line, "link:")
+			if len(linkArr) > 1 {
+				postResult.Link = linkArr[1]
+			}
+		}
+		if strings.Contains(line, "tools:") {
+			toolsArr := strings.Split(line, "tools:")
+			if len(toolsArr) > 1 {
+				postResult.Tools = toolsArr[1]
+			}
+		}
+		if strings.Contains(line, "progress:") {
+			progressArr := strings.Split(line, "progress:")
+			if len(progressArr) > 1 {
+				postResult.Progress = progressArr[1]
+			}
+		}
+		if strings.Contains(line, "repo:") {
+			repoArr := strings.Split(line, "repo:")
+			if len(repoArr) > 1 {
+				postResult.Repo = repoArr[1]
+			}
+		}
 	}
 	if post.ImageID > 0 {
 		imageBase64, err := getImageAsBase64(post.ImageID, post.ImageExtention)

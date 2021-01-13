@@ -19,7 +19,7 @@ func getDatabasePath() string {
 
 // Connect returns a connection to the database
 func Connect() (*gorm.DB, error) {
-	return ConnectWithLogLevel(logger.Info)
+	return ConnectWithLogLevel(logger.Error)
 }
 
 // ConnectWithLogLevel returns a connection to the database with the specified logLevel
