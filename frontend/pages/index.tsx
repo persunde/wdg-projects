@@ -1,27 +1,36 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-
 import Link from 'next/link'
 
 export default function Home() {
 	return (
-		<div className={styles.container}>
+		<div className="flex justify-center min-h-screen">
 			<Head>
 				<title>/wdg/ Projects</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className={styles.main}>
-				<h1 className={styles.title}>
+			<main className="self-center">
+				<h1 className="flex justify-center text-6xl">
 					Welcome to /wdg/ projects!
 				</h1>
 
-				<div className={styles.description}>
+				<h3 className="flex justify-center">
 					Lets show off the cool projects people at /wdg/ are making!
-				</div>
+				</h3>
 				<Link href="/projects">
-					<a>Click here to see a list of all the projects</a>
+					<a className="flex justify-center">
+						Click here to see a list of all the projects
+					</a>
 				</Link>
+
+				<div className="flex justify-center space-x-1">
+					<div>
+						Our Github repository
+					</div>
+					<Link href="https://github.com/persunde/wdg-projects" >
+						<a target="_blank" rel="noopener noreferrer">https://github.com/persunde/wdg-projects</a>
+					</Link>
+				</div>
 			</main>
 		</div>
 	)
