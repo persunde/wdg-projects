@@ -52,5 +52,5 @@ Will be built using a Nextjs as our static site generator. The deploy script is 
 
 
 ## Need to get in touch through private channels?
-Send me an email at wdg@iloveoss.com 
+Send me an email at anon@wdg.one
 - NOTE: it is a forwarding address, so I will reply from another email account
