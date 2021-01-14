@@ -9,21 +9,21 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className="self-center">
-				<h1 className="flex justify-center text-6xl">
+			<main className="self-center text-center">
+				<h1 className="text-6xl">
 					Welcome to /wdg/ projects!
 				</h1>
 
-				<h3 className="flex justify-center">
+				<h3 className="">
 					Lets show off the cool projects people at /wdg/ are making!
 				</h3>
 				<Link href="/projects">
-					<a className="flex justify-center">
+					<a className="">
 						Click here to see a list of all the projects
 					</a>
 				</Link>
 
-				<div className="flex justify-center space-x-1">
+				<div className="">
 					<div>
 						Our Github repository
 					</div>
