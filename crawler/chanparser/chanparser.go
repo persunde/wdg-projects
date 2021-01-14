@@ -108,8 +108,6 @@ func ParseWdgThread(thread types.ThreadJSON) []types.PostResult {
 
 // ParsePost finds if the post contains a job search
 func ParsePost(post types.PostJSON) (types.PostResult, error) {
-	// https://i.4cdn.org/g/[4chan image ID].[file extension]
-
 	var postResult types.PostResult
 	postResult.PostNo = post.No
 	foundData := false
