@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "predeploy": "next build && next export && touch out/.nojekyll",
+    "predeploy": "next build && next export && echo \"wdg.one\" > out/CNAME &&  touch out/.nojekyll",
     "deploy": "gh-pages -d out --dotfiles true"
   },
   "dependencies": {
