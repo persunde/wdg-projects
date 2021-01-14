@@ -3,6 +3,8 @@ A list of /wdg/ personal projects
 
 Inspired by an /adg/ project found here: http://recap.agdg.io/info
 
+See the project homepage here: https://wdg.one/
+
 ## If you want to contribute
 1. Build a scraper
 	- Find the posts containing /wdg/ users personal projects
