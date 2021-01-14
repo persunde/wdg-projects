@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
+import { getAllProjects, getProject } from "../../db/database";
 import { ProjectPost } from "../../interface/interface";
 
 
@@ -18,9 +19,8 @@ const Project = (projectPost: ProjectPost) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-	const id = context.params.id
-	const response = await fetch(`http://localhost:3000/api/projects/${id}`)
-	const projectData: ProjectPost = await response.json() // List with all the IDs of the projects
+	const id = Number(context.params.id)
+	const projectData = getProject(id)
 
 	return {
 		props: {
@@ -36,8 +36,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 export const getStaticPaths: GetStaticPaths = async () => {
 	// Here it finds all the paths that needs to be generated!
 	// We get a list of ProjectPosts. We send all the IDs to getStaticProps, then a page will be generated for each ID
-	const response = await fetch("http://localhost:3000/api/projects")
-	const projectIdList: ProjectPost[] = await response.json() // List with all the IDs of the projects
+	const projectIdList: ProjectPost[] = getAllProjects()
 
 	return {
 		paths: projectIdList.map(projectPost => {

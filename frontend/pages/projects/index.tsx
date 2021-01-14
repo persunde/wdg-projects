@@ -1,5 +1,6 @@
 import { GetStaticProps } from "next";
 import Link from "next/link";
+import { getAllProjectIDs } from "../../db/database";
 import { ProjectPost } from "../../interface/interface";
 
 interface ProjectProps {
@@ -27,14 +28,11 @@ const Project = ({ idList }: ProjectProps) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-	const response = await fetch("http://localhost:3000/api/projects")
-	const projectList: ProjectPost[] = await response.json() // List of all the projects posts
-
-	const projectIdList = projectList.map(project => project.id)
+	const projectIDList: Number[] = getAllProjectIDs()
 
 	return {
 		props: {
-			idList: projectIdList,
+			idList: projectIDList,
 		},
 // 		// Next.js will attempt to re-generate the page:
 // 		// - When a request comes in
