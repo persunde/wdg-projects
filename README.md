@@ -18,9 +18,10 @@ See the project homepage here: https://wdg.one/
 	```
 	- Someone needs to host the server
 2. Build the frontend
-	- Lets host it on GitHub Pages for free
+	- Devlop the Nextjs frontend to make it look pretty and nice
+	- ~~Lets host it on GitHub Pages for free~~ COMPLETED
 	- Setup a CDN?
-	- Buy a proper domain?
+	- ~~Buy a proper domain?~~ COMPLETED https://wdg.one
 
 ## How to contribute?
 Please open an issue where you say what you are going to do to avoid multiple people working on the same things.
@@ -44,10 +45,9 @@ The scraper will use Sqlite as its database. The Scraper will update the DB when
 Once the Scraper have found a new project, updated the DB and pushed all updates to the repo, it should trigger an event that re-generates the (static) website so that the website is constantly updated with the newest projects. This will be done **using Github Actions**.
 
 ## Frontent 
-Will be built using a static site generator like Nextjs, Gatsby or something else. I recommend Nextjs.
+Will be built using a Nextjs as our static site generator. The deploy script is setup.
 - Static Site Generator
-	- React with Nextjs / Gatsby?
-	- Vue? If people want to use that, then make it. If I have to make the frontend, I will use Nextjs.
+	- React with Nextjs
 - Hosted on GitHub Pages for free hosting
 
 
