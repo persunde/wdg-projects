@@ -1,4 +1,5 @@
 import Sqlite, { Database } from "better-sqlite3"
+import { ProjectPost } from "../interface/interface";
 
 const PAGINATION_SIZE = Number(15)
 
@@ -6,7 +7,6 @@ const PAGINATION_SIZE = Number(15)
 function openDB() {
 	const db = new Sqlite('../database/wdgprojects.db', { 
 		fileMustExist: true,
-		verbose: console.log,
 	});
 	return db
 }
@@ -19,10 +19,7 @@ function closeDB(db: Database) {
 interface QueryID {
 	id: Number
 }
-/**
- * Returns a list of all the job IDs for posts in english
- * TODO: only return IDs of posts that are still active
- */
+
 export function getAllProjectIDs(): Number[] {
 	const db = openDB()
 	const query = db.prepare('SELECT ID FROM project_posts')
@@ -32,4 +29,20 @@ export function getAllProjectIDs(): Number[] {
 	})
 	closeDB(db)
 	return idList
+}
+
+export function getAllProjects(): ProjectPost[] {
+	const db = openDB()
+	const query = db.prepare('SELECT * FROM project_posts')
+	const result = query.all()
+	closeDB(db)
+	return result
+}
+
+export function getProject(id: number): ProjectPost {
+	const db = openDB()
+	const query = db.prepare('SELECT * FROM project_posts WHERE id = ?')
+	const result = query.get(id)
+	closeDB(db)
+	return result
 }

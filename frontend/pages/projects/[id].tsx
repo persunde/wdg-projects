@@ -1,26 +1,30 @@
 import { GetStaticPaths, GetStaticProps } from "next";
+import { ProjectPost } from "../../interface/interface";
 
-interface ProjectProps {
-	id: string
-}
 
-const Project = ({ id }: ProjectProps) => {
+const Project = (projectPost: ProjectPost) => {
+	const id = projectPost.id
 	return (
 		<div>
-			Hello. I am page: {id}
+			<h1>{projectPost.title}</h1>
+			<div>Developer: {projectPost.dev}</div>
+			<div>Progress: {projectPost.progress}</div>
+			<div>Repo: {projectPost.repo}</div>
+			<div>Tools: {projectPost.tools}</div>
+			<div>Link <a href={projectPost.link}>{projectPost.link}</a></div>
+			<img src={`data:image/jpeg;base64,${projectPost.image}`}/>
 		</div>
 	)
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
 	const id = context.params.id
-
-	// TODO: fetch project data from /api/projects/id
+	const response = await fetch(`http://localhost:3000/api/projects/${id}`)
+	const projectData: ProjectPost = await response.json() // List with all the IDs of the projects
 
 	return {
 		props: {
-			id,
-			// TODO: add all the data we send as props to the render function Project
+			...projectData // Project data is sent as props to the render function Project
 		},
 // 		// Next.js will attempt to re-generate the page:
 // 		// - When a request comes in
@@ -31,15 +35,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	// Here it finds all the paths that needs to be generated!
-	// We return a list of IDs, that is then sent to getStaticProps for each page/ID
+	// We get a list of ProjectPosts. We send all the IDs to getStaticProps, then a page will be generated for each ID
 	const response = await fetch("http://localhost:3000/api/projects")
-	const projectIdList: Number[] = await response.json() // List with all the IDs of the projects
+	const projectIdList: ProjectPost[] = await response.json() // List with all the IDs of the projects
 
 	return {
-		paths: projectIdList.map(id => {
+		paths: projectIdList.map(projectPost => {
 			return {
 				params: {
-					id: id.toString()
+					id: projectPost.id.toString()
 				},
 			}
 		}),

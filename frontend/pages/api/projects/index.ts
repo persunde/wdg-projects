@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getAllProjectIDs } from '../../../db/database';
+import { getAllProjects } from '../../../db/database';
 
 export default async function getSingleJobPost(req: NextApiRequest, res: NextApiResponse) {
-	const idList = getAllProjectIDs()
-	console.log(idList)
+	const idList = getAllProjects()
 	res.json(idList)
 }
