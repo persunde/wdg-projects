@@ -1,20 +1,26 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getAllProjects, getProject } from "../../db/database";
 import { ProjectPost } from "../../interface/interface";
-
+import Menu from '../../components/menu/menu'
 
 const Project = (projectPost: ProjectPost) => {
 	const id = projectPost.id
 	return (
-		<div>
-			<h1>{projectPost.title}</h1>
-			<div>Developer: {projectPost.dev}</div>
-			<div>Progress: {projectPost.progress}</div>
-			<div>Repo: {projectPost.repo}</div>
-			<div>Tools: {projectPost.tools}</div>
-			<div>Link <a href={projectPost.link}>{projectPost.link}</a></div>
-			<img src={`data:image/jpeg;base64,${projectPost.image}`}/>
-		</div>
+		<main>
+			<h1>/wdg/ - Web Dev General</h1>
+			<Menu/>
+			<section>
+				<div>
+					<h2>{projectPost.title}</h2>
+					<img src={`data:image/jpeg;base64,${projectPost.image}`}/>
+					<div>Developer: {projectPost.dev}</div>
+					<div>Progress: {projectPost.progress}</div>
+					<div>Repo: {projectPost.repo}</div>
+					<div>Tools: {projectPost.tools}</div>
+					<div>Link <a href={projectPost.link}>{projectPost.link}</a></div>
+				</div>
+			</section>
+		</main>
 	)
 }
 

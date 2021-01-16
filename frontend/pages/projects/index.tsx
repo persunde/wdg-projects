@@ -2,6 +2,7 @@ import { GetStaticProps } from "next";
 import Link from "next/link";
 import { getAllProjectIDs } from "../../db/database";
 import { ProjectPost } from "../../interface/interface";
+import Menu from '../../components/menu/menu'
 
 interface ProjectProps {
 	idList: Number[]
@@ -10,20 +11,25 @@ interface ProjectProps {
 const Project = ({ idList }: ProjectProps) => {
 	const projectLinkList = idList.map(id => {
 		return (
-			<Link href={`/projects/${id}`}>
-				<a>
-					<div>
-						Click here to go to Project {id}
-					</div>
-				</a>
-			</Link>
+			<li key={id.toString()}>
+				<Link href={`/projects/${id}`}>
+					<a>{id}</a>
+				</Link>
+			</li>
 		)
 	})
 
 	return (
-		<>
-			{projectLinkList}
-		</>
+		<main>
+			<h1>/wdg/ - Web Dev General</h1>
+			<Menu/>
+			<section>
+				<h2>Projects</h2>
+				<ul>
+					{projectLinkList}
+				</ul>
+			</section>
+		</main>
 	)
 }
 
