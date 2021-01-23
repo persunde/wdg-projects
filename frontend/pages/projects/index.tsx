@@ -1,19 +1,19 @@
 import { GetStaticProps } from "next";
 import Link from "next/link";
-import { getAllProjectIDs } from "../../db/database";
+import { getAllProjects } from "../../db/database";
 import { ProjectPost } from "../../interface/interface";
 import Menu from '../../components/menu/menu'
 
 interface ProjectProps {
-	idList: Number[]
+	projectList: ProjectPost[]
 }
 
-const Project = ({ idList }: ProjectProps) => {
-	const projectLinkList = idList.map(id => {
+const Project = ({ projectList }: ProjectProps) => {
+	const projectLinkList = projectList.map(project => {
 		return (
-			<li key={id.toString()}>
-				<Link href={`/projects/${id}`}>
-					<a>{id}</a>
+			<li key={project.id.toString()}>
+				<Link href={`/projects/${project.id}`}>
+					<a>{project.title}</a>
 				</Link>
 			</li>
 		)
@@ -34,11 +34,11 @@ const Project = ({ idList }: ProjectProps) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-	const projectIDList: Number[] = getAllProjectIDs()
+	const projectList: ProjectPost[] = getAllProjects()
 
 	return {
 		props: {
-			idList: projectIDList,
+			projectList: projectList,
 		},
 // 		// Next.js will attempt to re-generate the page:
 // 		// - When a request comes in

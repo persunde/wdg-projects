@@ -3,8 +3,13 @@ import { getAllProjects, getProject } from "../../db/database";
 import { ProjectPost } from "../../interface/interface";
 import Menu from '../../components/menu/menu'
 
-const Project = (projectPost: ProjectPost) => {
-	const id = projectPost.id
+interface ProjectProps {
+	projectID: number
+	projectPostList: ProjectPost[]
+}
+const Project = ({projectID, projectPostList}: ProjectProps) => {
+	const projectPost = projectPostList[0]
+	// TODO: present a list of progress for the project here
 	return (
 		<main>
 			<h1>/wdg/ - Web Dev General</h1>
@@ -26,11 +31,12 @@ const Project = (projectPost: ProjectPost) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
 	const id = Number(context.params.id)
-	const projectData = getProject(id)
+	const projectDataList: ProjectPost[] = getProject(id)
 
 	return {
 		props: {
-			...projectData // Project data is sent as props to the render function Project
+			projectID: id,
+			projectPostList: projectDataList // Project data is sent as props to the render function Project
 		},
 // 		// Next.js will attempt to re-generate the page:
 // 		// - When a request comes in

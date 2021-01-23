@@ -39,10 +39,10 @@ export function getAllProjects(): ProjectPost[] {
 	return result
 }
 
-export function getProject(id: number): ProjectPost {
+export function getProject(id: number): ProjectPost[] {
 	const db = openDB()
-	const query = db.prepare('SELECT * FROM project_posts WHERE id = ?')
-	const result = query.get(id)
+	const query = db.prepare('SELECT * FROM project_posts WHERE id = ?') // TODO: I will add a column projectID once the backend is ready. ID will refer to the row in Posts.
+	const result = query.all(id)
 	closeDB(db)
 	return result
 }
