@@ -10,10 +10,6 @@ func main() {
 
 	postsWithProjectContent := chanparser.GetWDGProjectPosts()
 	if len(postsWithProjectContent) > 0 {
-		// TODO:
-		// 1. Insert content into DB
-		// 2. trigger an action to re-generate the website
-		// 3? Update Github repo with the latest DB?
 		for _, post := range postsWithProjectContent {
 			db.InsertProjectPost(post)
 		}

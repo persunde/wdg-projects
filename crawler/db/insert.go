@@ -8,8 +8,6 @@ import (
 )
 
 // InsertProjectPost inserts into the database that this post has now been replied to
-// TODO: if any data is new for the Project, such as title, dev, tools, update the Project row
-// Data such as Progress and image, is linked to each Post and not the project itself, but the rest of the data belongs to a Project row
 func InsertProjectPost(post types.PostResult) error {
 	db, err := Connect()
 	if err != nil {

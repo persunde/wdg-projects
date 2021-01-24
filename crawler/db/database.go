@@ -18,7 +18,6 @@ func getDatabasePath() string {
 }
 
 // Connect returns a connection to the database
-// TODO: make the connection long lived. Just open it, and if open, then
 func Connect() (*gorm.DB, error) {
 	return ConnectWithLogLevel(logger.Error) // Now this only works the first time when the connection is initialized
 }

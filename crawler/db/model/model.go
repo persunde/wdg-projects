@@ -20,17 +20,9 @@ type Project struct {
 type ProjectPost struct {
 	ID        uint
 	ProjectID uint
-	Title     string
-	Dev       string
-	Tools     string
-	Link      string
-	Repo      string
 	Progress  string
 	PostNo    uint
 	Image     string // as Base64
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
-
-// TODO: remove Title, Dev, Tools, Link, Repo from ProjectPost. That is data that is part of the Project, and not the ProjectPost
-// ProjectPost only has the Progress and Image,

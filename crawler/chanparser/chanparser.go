@@ -108,15 +108,12 @@ func ParseWdgThread(thread types.ThreadJSON) []types.PostResult {
 }
 
 // ParsePost finds if the post contains a job search
-// TODO: require either LINK or REPO, one of these will be the unique identifier!
 func ParsePost(post types.PostJSON) (types.PostResult, error) {
 	var postResult types.PostResult
 	postResult.PostNo = post.No
 	foundTitle := false
-	foundRepoOrLink := false
 	commentList := parseHTMLText(post.Com)
 	for _, line := range commentList {
-		// TODO: check if the comment contains the necessary params here, then add them to postResult
 		re := regexp.MustCompile("::(.*?)::")
 		match := re.FindStringSubmatch(line) // If no match, it returns an empty list
 		if len(match) > 0 {
@@ -133,7 +130,6 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 			linkArr := strings.Split(line, "link:")
 			if len(linkArr) > 1 {
 				postResult.Link = strings.TrimSpace(linkArr[1])
-				foundRepoOrLink = true
 			}
 		}
 		if strings.Contains(line, "tools::") {
@@ -152,7 +148,6 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 			repoArr := strings.Split(line, "repo:")
 			if len(repoArr) > 1 {
 				postResult.Repo = strings.TrimSpace(repoArr[1])
-				foundRepoOrLink = true
 			}
 		}
 	}
@@ -168,10 +163,6 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 
 	if !foundTitle {
 		customErr := errors.Errorf("Post must have a Title. No title found!")
-		return postResult, customErr
-	}
-	if !foundRepoOrLink {
-		customErr := errors.Errorf("No repo or link in the post. Require either as a unique key!")
 		return postResult, customErr
 	}
 
