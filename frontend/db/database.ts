@@ -33,7 +33,7 @@ export function getAllProjectIDs(): Number[] {
 
 export function getAllProjects(): ProjectPost[] {
 	const db = openDB()
-	const query = db.prepare('SELECT * FROM project_posts')
+	const query = db.prepare('SELECT * FROM project_posts') // NOTE: this will be changed to table Project, and not project_post. A project_post will be a post for a project
 	const result = query.all()
 	closeDB(db)
 	return result
