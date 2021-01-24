@@ -33,11 +33,6 @@ func InsertProjectPost(post types.PostResult) error {
 	projectPost := model.ProjectPost{
 		ID:        post.PostNo,
 		ProjectID: projectID,
-		Title:     post.Title,
-		Dev:       post.Dev,
-		Tools:     post.Tools,
-		Link:      post.Link,
-		Repo:      post.Repo,
 		Progress:  post.Progress,
 		PostNo:    post.PostNo,
 		Image:     post.Image,
