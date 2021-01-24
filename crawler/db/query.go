@@ -52,7 +52,7 @@ func GetProjectID(projectTitle string) (uint, error) {
 	}
 
 	project := model.Project{}
-	result := db.Where("title LIKE ?", projectTitle).First(project)
+	result := db.Where("title LIKE ?", projectTitle).First(&project)
 	// if Record is not found, return 0. 0 means no row/record found
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 		return 0, nil
@@ -62,4 +62,24 @@ func GetProjectID(projectTitle string) (uint, error) {
 	}
 
 	return project.ID, nil
+}
+
+func GetPostID(postNo uint) (uint, error) {
+	db, err := Connect()
+	if err != nil {
+		log.Println(err)
+		return 0, err
+	}
+
+	post := model.ProjectPost{}
+	result := db.First(&post, postNo)
+	// if Record is not found, return 0. 0 means no row/record found
+	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+		return 0, nil
+	}
+	if result.Error != nil {
+		return 0, result.Error
+	}
+
+	return post.ID, nil
 }

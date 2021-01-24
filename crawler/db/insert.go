@@ -30,6 +30,15 @@ func InsertProjectPost(post types.PostResult) error {
 		// TODO update the project row if the title, dev, tools, link or repo is changed!
 	}
 
+	postID, err := GetPostID(post.PostNo)
+	if err != nil {
+		return err
+	}
+	// If post have already been processed -> return
+	if postID != 0 {
+		return nil
+	}
+
 	projectPost := model.ProjectPost{
 		ID:        post.PostNo,
 		ProjectID: projectID,
