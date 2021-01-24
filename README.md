@@ -5,49 +5,39 @@ Inspired by an /adg/ project found here: http://recap.agdg.io/info
 
 See the project homepage here: https://wdg.one/
 
+## How does wdg.one?
+The crawler reads the /wdg/ threads for posts containing the specific syntax and then updates the DB with the info in the post.
+
+Once the Scraper have found a new project, it updates the DB and re-generates the (static) website so that the website is constantly updated with the newest projects from /wdg/.
+
+If you want your project featured on https://wdg.one post comments with this syntax. Make sure the title is always the same, as it will be used to identify which project each post belongs to, so that you can see the progress on wdg.one
+
+```
+:: my-project-title ::
+dev:: anon
+tools:: node, react, etc
+link:: https://my.website.com
+repo:: github.com/user/repo
+progress:: This is the progress update text where you can write whatever you want. But keep it on one line for now, otherwise the content will be cut.
+```
+
 ## If you want to contribute
-1. Build a scraper
-	- Find the posts containing /wdg/ users personal projects
-	- Follow the post format used by /adg/ as seen here: http://recap.agdg.io/info
-	```text
-	:: [title] ::
-	dev ::
-	tools ::
-	web ::
-	progress ::
-	```
-	- Someone needs to host the server
-2. Build the frontend
-	- Devlop the Nextjs frontend to make it look pretty and nice
-	- ~~Lets host it on GitHub Pages for free~~ COMPLETED
-	- Setup a CDN?
-	- ~~Buy a proper domain?~~ COMPLETED https://wdg.one
+Look at the Issues and see if you want to help with any of those.
 
-## How to contribute?
-Please open an issue where you say what you are going to do to avoid multiple people working on the same things.
-
-If you don't want to do that, just send a pull-request and it will be merged into the repo on the owner / maintainers discretion.
+If you have any ideas you want to add, please open an issue and start developing away. Create a pull-request once you are done and it will hopefully be merged into the repo on the owner / maintainers discretion.
 
 # Tech-stack
 ## Scraper
 ### Language:
-One of the following:
-- Go
-- Node
-- Python
+[Golang](https://golang.org/)
 
 ### Database 
-Will use **Sqlite**
-
-The scraper should be the easy part. The 4chan API is easy to use. 
-The scraper will use Sqlite as its database. The Scraper will update the DB when it finds new projects in a /wdg/ post. Then it should the Sqlite .db file to this or another repo.
-
-Once the Scraper have found a new project, updated the DB and pushed all updates to the repo, it should trigger an event that re-generates the (static) website so that the website is constantly updated with the newest projects. This will be done **using Github Actions**.
+**Sqlite**
 
 ## Frontent 
 Will be built using a Nextjs as our static site generator. The deploy script is setup.
 - Static Site Generator
-	- React with Nextjs
+	- Nextjs - SSG with React
 - Hosted on GitHub Pages for free hosting
 
 
