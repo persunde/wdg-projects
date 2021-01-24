@@ -1,7 +1,6 @@
 package db
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/persunde/wdg-projects/crawler/db/model"
@@ -11,6 +10,7 @@ import (
 )
 
 var databasePath string = "../database/wdgprojects.db"
+var connection *gorm.DB = nil
 
 // TODO: replace this with a config for prod, test etc.
 func getDatabasePath() string {
@@ -18,23 +18,38 @@ func getDatabasePath() string {
 }
 
 // Connect returns a connection to the database
+// TODO: make the connection long lived. Just open it, and if open, then
 func Connect() (*gorm.DB, error) {
-	return ConnectWithLogLevel(logger.Error)
+	return ConnectWithLogLevel(logger.Error) // Now this only works the first time when the connection is initialized
 }
 
-// ConnectWithLogLevel returns a connection to the database with the specified logLevel
-func ConnectWithLogLevel(logLevel logger.LogLevel) (*gorm.DB, error) {
-	databasePath := getDatabasePath()
-
-	fmt.Println(databasePath)
-	// github.com/mattn/go-sqlite3
-	db, err := gorm.Open(sqlite.Open(databasePath), &gorm.Config{
-		Logger: logger.Default.LogMode(logLevel),
-	})
+// Close closes the database connection
+// NOTE: It is rare to Close a DB, as the DB handle is meant to be long-lived and shared between many goroutines.
+func Close(db *gorm.DB) error {
+	sqlDb, err := db.DB()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
-	return db, err
+	sqlDb.Close()
+
+	return nil
+}
+
+// ConnectWithLogLevel returns a connection to the database with the specified logLevel, but that is only set the first time the connection is created
+func ConnectWithLogLevel(logLevel logger.LogLevel) (*gorm.DB, error) {
+	if connection != nil {
+		databasePath := getDatabasePath()
+		// github.com/mattn/go-sqlite3
+		db, err := gorm.Open(sqlite.Open(databasePath), &gorm.Config{
+			Logger: logger.Default.LogMode(logLevel),
+		})
+		if err != nil {
+			log.Fatal(err)
+		}
+		connection = db
+	}
+
+	return connection, nil
 }
 
 // InitDatabaseTables creates the database tables if they dont already exist

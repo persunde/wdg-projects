@@ -1,6 +1,8 @@
 package db
 
 import (
+	"log"
+
 	"github.com/persunde/wdg-projects/crawler/db/model"
 )
 
@@ -38,4 +40,20 @@ func GetImageBase64() (model.ProjectPost, error) {
 	}
 
 	return projectPost, nil
+}
+
+func GetProjectID(projectTitle string) (uint, error) {
+	db, err := Connect()
+	if err != nil {
+		log.Println(err)
+		return 0, err
+	}
+
+	project := model.Project{}
+	result := db.Where("title LIKE ?", projectTitle).First(project)
+	if result.Error != nil {
+		return 0, result.Error
+	}
+
+	return project.ID, nil
 }
