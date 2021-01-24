@@ -1,14 +1,14 @@
 import { GetStaticProps } from "next";
 import Link from "next/link";
 import { getAllProjects } from "../../db/database";
-import { ProjectPost } from "../../interface/interface";
+import { Project } from "../../interface/interface";
 import Menu from '../../components/menu/menu'
 
-interface ProjectProps {
-	projectList: ProjectPost[]
+interface ProjectMainComponentProps {
+	projectList: Project[]
 }
 
-const Project = ({ projectList }: ProjectProps) => {
+const ProjectMainComponent = ({ projectList }: ProjectMainComponentProps) => {
 	const projectLinkList = projectList.map(project => {
 		return (
 			<li key={project.id.toString()}>
@@ -34,7 +34,7 @@ const Project = ({ projectList }: ProjectProps) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-	const projectList: ProjectPost[] = getAllProjects()
+	const projectList: Project[] = getAllProjects()
 
 	return {
 		props: {
@@ -47,4 +47,4 @@ export const getStaticProps: GetStaticProps = async (context) => {
 	}
 }
 
-export default Project
+export default ProjectMainComponent
