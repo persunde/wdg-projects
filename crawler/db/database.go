@@ -36,19 +36,18 @@ func Close(db *gorm.DB) error {
 
 // ConnectWithLogLevel returns a connection to the database with the specified logLevel, but that is only set the first time the connection is created
 func ConnectWithLogLevel(logLevel logger.LogLevel) (*gorm.DB, error) {
-	if connection != nil {
-		databasePath := getDatabasePath()
-		// github.com/mattn/go-sqlite3
-		db, err := gorm.Open(sqlite.Open(databasePath), &gorm.Config{
-			Logger: logger.Default.LogMode(logLevel),
-		})
-		if err != nil {
-			log.Fatal(err)
-		}
-		connection = db
-	}
 
-	return connection, nil
+	databasePath := getDatabasePath()
+	// github.com/mattn/go-sqlite3
+	db, err := gorm.Open(sqlite.Open(databasePath), &gorm.Config{
+		Logger: logger.Default.LogMode(logLevel),
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	connection = db
+
+	return db, nil
 }
 
 // InitDatabaseTables creates the database tables if they dont already exist
