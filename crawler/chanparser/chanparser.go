@@ -121,36 +121,42 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 			foundTitle = true
 		}
 		if strings.Contains(line, "dev::") {
-			devArr := strings.Split(line, "dev:")
+			devArr := strings.Split(line, "dev::")
 			if len(devArr) > 1 {
 				postResult.Dev = strings.TrimSpace(devArr[1])
 			}
 		}
 		if strings.Contains(line, "link::") {
-			linkArr := strings.Split(line, "link:")
+			linkArr := strings.Split(line, "link::")
 			if len(linkArr) > 1 {
 				postResult.Link = strings.TrimSpace(linkArr[1])
 			}
 		}
 		if strings.Contains(line, "tools::") {
-			toolsArr := strings.Split(line, "tools:")
+			toolsArr := strings.Split(line, "tools::")
 			if len(toolsArr) > 1 {
 				postResult.Tools = strings.TrimSpace(toolsArr[1])
 			}
 		}
 		if strings.Contains(line, "progress::") {
-			progressArr := strings.Split(line, "progress:")
+			progressArr := strings.Split(line, "progress::")
 			if len(progressArr) > 1 {
 				postResult.Progress = progressArr[1]
 			}
 		}
 		if strings.Contains(line, "repo::") {
-			repoArr := strings.Split(line, "repo:")
+			repoArr := strings.Split(line, "repo::")
 			if len(repoArr) > 1 {
 				postResult.Repo = strings.TrimSpace(repoArr[1])
 			}
 		}
 	}
+
+	if !foundTitle {
+		customErr := errors.Errorf("Post must have a Title. No title found!")
+		return postResult, customErr
+	}
+
 	if post.ImageID > 0 {
 		imageBase64, err := getImageAsBase64(post.ImageID, post.ImageExtention)
 		if err != nil {
@@ -159,11 +165,6 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 		} else {
 			postResult.Image = imageBase64
 		}
-	}
-
-	if !foundTitle {
-		customErr := errors.Errorf("Post must have a Title. No title found!")
-		return postResult, customErr
 	}
 
 	return postResult, nil
@@ -201,9 +202,6 @@ func getImageAsBase64(imageID uint, imageExtention string) (string, error) {
 func getImageSource(imageID uint, imageExtention string) ([]byte, error) {
 	// https://i.4cdn.org/[board]/[4chan image ID].[file extension]
 	url := fmt.Sprintf(imageURL, imageID, imageExtention)
-	fmt.Println("--------------")
-	fmt.Println(url)
-	fmt.Println("--------------")
 	myClient := &http.Client{Timeout: 10 * time.Second}
 	res, err := myClient.Get(url)
 	if err != nil {
