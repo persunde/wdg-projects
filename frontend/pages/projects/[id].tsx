@@ -66,4 +66,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	}
 }
 
-export default Project
+export default ProjectComponent
