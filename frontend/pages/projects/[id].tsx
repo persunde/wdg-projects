@@ -1,28 +1,30 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { getAllProjects, getProject } from "../../db/database";
-import { ProjectPost } from "../../interface/interface";
+import { getAllProjects, getProject, getProjectPosts } from "../../db/database";
+import { ProjectPost, Project } from "../../interface/interface";
 import Menu from '../../components/menu/menu'
 
-interface ProjectProps {
-	projectID: number
+interface ProjectComponentProps {
+	projectData: Project
 	projectPostList: ProjectPost[]
 }
-const Project = ({projectID, projectPostList}: ProjectProps) => {
+const ProjectComponent = ({projectData, projectPostList}: ProjectComponentProps) => {
 	const projectPost = projectPostList[0]
 	// TODO: present a list of progress for the project here
+	// projectData contains data about a Project. Such as the developer, tools, link and title
+	// projectPostList is a list of the Progress reports. It contains images posted with the comment and the progress comment
 	return (
 		<main>
 			<h1>/wdg/ - Web Dev General</h1>
 			<Menu/>
 			<section>
 				<div>
-					<h2>{projectPost.title}</h2>
+					<h2>{projectData.title}</h2>
 					<img src={`data:image/jpeg;base64,${projectPost.image}`}/>
-					<div>Developer: {projectPost.dev}</div>
+					<div>Developer: {projectData.dev}</div>
 					<div>Progress: {projectPost.progress}</div>
-					<div>Repo: {projectPost.repo}</div>
-					<div>Tools: {projectPost.tools}</div>
-					<div>Link <a href={projectPost.link}>{projectPost.link}</a></div>
+					<div>Repo: {projectData.repo}</div>
+					<div>Tools: {projectData.tools}</div>
+					<div>Link <a href={projectData.link}>{projectData.link}</a></div>
 				</div>
 			</section>
 		</main>
@@ -31,12 +33,13 @@ const Project = ({projectID, projectPostList}: ProjectProps) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
 	const id = Number(context.params.id)
-	const projectDataList: ProjectPost[] = getProject(id)
+	const projectData: Project = getProject(id)
+	const projectPostsDataList: ProjectPost[] = getProjectPosts(id)
 
 	return {
 		props: {
-			projectID: id,
-			projectPostList: projectDataList // Project data is sent as props to the render function Project
+			projectData: projectData,
+			projectPostList: projectPostsDataList // Project data is sent as props to the render function Project
 		},
 // 		// Next.js will attempt to re-generate the page:
 // 		// - When a request comes in
@@ -58,8 +61,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 				},
 			}
 		}),
-		// TODO: set fallback: true, and create a fallback page that handles when people copy/paste a search URL ???? Does this work with next export?
-		// IF it does not work with next export, then add a ?params=... to the /jobs URL and use that to fetch the requested data
+		// Fallback does not work with export and is ignored, unless you run a Nextjs server as a backend instead of pure static export.
 		fallback: false,
 	}
 }

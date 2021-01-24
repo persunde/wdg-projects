@@ -1,5 +1,5 @@
 import Sqlite, { Database } from "better-sqlite3"
-import { ProjectPost } from "../interface/interface";
+import { Project, ProjectPost } from "../interface/interface";
 
 const PAGINATION_SIZE = Number(15)
 
@@ -31,18 +31,27 @@ export function getAllProjectIDs(): Number[] {
 	return idList
 }
 
-export function getAllProjects(): ProjectPost[] {
+export function getAllProjects(): Project[] {
 	const db = openDB()
-	const query = db.prepare('SELECT * FROM project_posts') // NOTE: this will be changed to table Project, and not project_post. A project_post will be a post for a project
+	const query = db.prepare('SELECT * FROM projects')
 	const result = query.all()
 	closeDB(db)
 	return result
 }
 
-export function getProject(id: number): ProjectPost[] {
+export function getProjectPosts(id: number): ProjectPost[] {
 	const db = openDB()
-	const query = db.prepare('SELECT * FROM project_posts WHERE id = ?') // TODO: I will add a column projectID once the backend is ready. ID will refer to the row in Posts.
+	const query = db.prepare('SELECT * FROM project_posts WHERE project_id = ?')
 	const result = query.all(id)
 	closeDB(db)
+	return result
+}
+
+export function getProject(id: number): Project {
+	const db = openDB()
+	const query = db.prepare("SELECT * FROM projects WHERE id = ?")
+	const result = query.get(id)
+	closeDB(db)
+
 	return result
 }
