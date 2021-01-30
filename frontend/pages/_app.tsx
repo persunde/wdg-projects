@@ -4,7 +4,7 @@ import '../styles/globals.scss'
 function MyApp({ Component, pageProps }) {
   let analytics = null
   if (process.env.NODE_ENV === "production") {
-    analytics = <script async defer data-website-id="5da6576d-1382-444c-8aed-592906a467a8" src="https://analytics.nordictechjobs.com/umami.js"></script>
+    analytics = <script async defer data-website-id="d28a4815-01a3-4a2a-87fc-b7d472516db8" src="https://analytics.nordictechjobs.com/umami.js"></script>
   }
   
   return (
