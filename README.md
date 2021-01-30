@@ -5,7 +5,7 @@ Inspired by an /adg/ project found here: http://recap.agdg.io/info
 
 See the project homepage here: https://wdg.one/
 
-## How does wdg.one?
+## How does wdg.one work?
 The crawler reads the /wdg/ threads for posts containing the specific syntax and then updates the DB with the info in the post.
 
 Once the Scraper have found a new project, it updates the DB and re-generates the (static) website so that the website is constantly updated with the newest projects from /wdg/.
