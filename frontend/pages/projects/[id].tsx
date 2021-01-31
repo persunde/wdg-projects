@@ -1,7 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { getAllProjects, getProject, getProjectPosts } from "../../db/database";
 import { ProjectPost, Project } from "../../interface/interface";
-import Menu from "../../components/menu/menu";
+import Menu from "../../components/Menu";
+import ProjectDetails from "../../components/ProjectDetails";
 
 interface ProjectComponentProps {
 	projectData: Project;
@@ -11,27 +12,11 @@ const ProjectComponent = ({
 	projectData,
 	projectPostList,
 }: ProjectComponentProps) => {
-	const projectPost = projectPostList[0];
-	// TODO: present a list of progress for the project here
-	// projectData contains data about a Project. Such as the developer, tools, link and title
-	// projectPostList is a list of the Progress reports. It contains images posted with the comment and the progress comment
 	return (
 		<main>
 			<h1>/wdg/ - Web Dev General</h1>
 			<Menu />
-			<section>
-				<div>
-					<h2>{projectData.title}</h2>
-					<img src={`data:image/jpeg;base64,${projectPost.image}`} />
-					<div>Developer: {projectData.dev}</div>
-					<div>Progress: {projectPost.progress}</div>
-					<div>Repo: {projectData.repo}</div>
-					<div>Tools: {projectData.tools}</div>
-					<div>
-						Link <a href={projectData.link}>{projectData.link}</a>
-					</div>
-				</div>
-			</section>
+			<ProjectDetails projectData={projectData} postData={projectPostList} />
 		</main>
 	);
 };
@@ -46,10 +31,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 			projectData: projectData,
 			projectPostList: projectPostsDataList, // Project data is sent as props to the render function Project
 		},
-		// 		// Next.js will attempt to re-generate the page:
-		// 		// - When a request comes in
-		// 		// - At most once every second
-		// 		revalidate: 180, // In second
 	};
 };
 

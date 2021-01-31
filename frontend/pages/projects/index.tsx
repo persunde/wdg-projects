@@ -1,31 +1,21 @@
 import { GetStaticProps } from "next";
-import Link from "next/link";
 import { getAllProjects } from "../../db/database";
 import { Project } from "../../interface/interface";
-import Menu from "../../components/menu/menu";
+import Menu from "../../components/Menu";
+import ProjectsDetails from "../../components/ProjectsDetails";
 
 interface ProjectMainComponentProps {
 	projectList: Project[];
 }
 
 const ProjectMainComponent = ({ projectList }: ProjectMainComponentProps) => {
-	const projectLinkList = projectList.map((project) => {
-		return (
-			<li key={project.id.toString()}>
-				<Link href={`/projects/${project.id}`}>
-					<a>{project.title}</a>
-				</Link>
-			</li>
-		);
-	});
-
 	return (
 		<main>
 			<h1>/wdg/ - Web Dev General</h1>
 			<Menu />
 			<section>
 				<h2>Projects</h2>
-				<ul>{projectLinkList}</ul>
+				<ProjectsDetails data={projectList} />
 			</section>
 		</main>
 	);

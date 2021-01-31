@@ -1,6 +1,5 @@
 import Head from "next/head";
-import Link from "next/link";
-import Menu from "../components/menu/menu";
+import Menu from "../components/Menu";
 
 export default function Home() {
 	return (
