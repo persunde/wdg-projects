@@ -1,0 +1,16 @@
+.table {
+	margin: 0;
+	border-collapse: separate;
+
+	thead {
+		font-weight: 700;
+	}
+
+	td {
+		border-left: 30px solid transparent;
+
+		&:first-child {
+			border-left: 0;
+		}
+	}
+}

@@ -1,63 +1,68 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html {
-  font-size: 62.5%;
+	font-size: 62.5%;
 }
 
 body {
-  font-size: 1.8rem;
-  font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace; 
-  margin: 0;
-  padding: 0;
-  background: #222;
-  color: #f3f3f3;
-  padding: 1em;
+	font-size: 1.8rem;
+	font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter,
+		monospace;
+	margin: 0;
+	padding: 0;
+	background: #222;
+	color: #f3f3f3;
+	padding: 1em;
 
-  @media screen and (min-width: 768px) {
-    padding: 5em;
-  }
+	@media screen and (min-width: 768px) {
+		padding: 5em;
+	}
 }
 
 a {
-  color: rgb(0, 212, 250);
-  text-decoration: none;
+	color: rgb(0, 212, 250);
+	text-decoration: none;
 
-  &[target="_blank"]::after {
-    content: '^';
-    display: inline;
-    margin: 0 0 0 .3em;
-    color: #f3f3f3;
-  }
+	&[target="_blank"]::after {
+		content: "^";
+		display: inline;
+		margin: 0 0 0 0.3em;
+		color: #f3f3f3;
+	}
 }
 
 h1,
 h2,
 h3,
 h4 {
-  margin: 0 0 1em;
+	margin: 2em 0 1em;
+}
+
+h1 {
+	margin-top: 0;
 }
 
 p {
-  margin: 0 0 1.5em;
+	margin: 0 0 1.5em;
 }
 
 ul {
-  list-style-type: square;
+	list-style-type: square;
 }
 
 code {
-  white-space: pre-wrap;
-  display: block;
+	white-space: pre-wrap;
+	display: block;
 }
 
 section {
-  margin: 3em 0;
+	margin: 3em 0;
 
-  @media screen and (min-width: 768px) {
-    margin: 5em 0;
-  }
+	@media screen and (min-width: 768px) {
+		margin: 5em 0;
+	}
 }

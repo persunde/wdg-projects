@@ -1,0 +1,10 @@
+.img {
+	display: block;
+	max-width: 350px;
+	cursor: zoom-in;
+	margin: 0 0 20px;
+
+	&[data-expand="true"] {
+		max-width: none;
+	}
+}
