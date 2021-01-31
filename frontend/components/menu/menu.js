@@ -1,6 +1,6 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-const Menu = props => {
+const Menu = (props) => {
 	return (
 		<ul>
 			<li>
@@ -14,13 +14,25 @@ const Menu = props => {
 				</Link>
 			</li>
 			<li>
-				<a href="https://boards.4channel.org/g/catalog#s=wdg" target="_blank" rel="noopener noreferrer">The latest /wdg/ thread</a>
+				<a
+					href="https://boards.4channel.org/g/catalog#s=wdg"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					The latest /wdg/ thread
+				</a>
 			</li>
 			<li>
-				<a href="https://github.com/persunde/wdg-projects" target="_blank" rel="noopener noreferrer">This sites repo</a>
+				<a
+					href="https://github.com/persunde/wdg-projects"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					This sites repo
+				</a>
 			</li>
 		</ul>
-	)
-}
+	);
+};
 
-export default Menu
+export default Menu;
