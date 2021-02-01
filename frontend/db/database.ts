@@ -41,7 +41,12 @@ export function getAllProjects(): Project[] {
 
 export function getProjectPosts(id: number): ProjectPost[] {
 	const db = openDB();
-	const query = db.prepare("SELECT * FROM project_posts WHERE project_id = ?");
+	const query = db.prepare(`
+		SELECT * 
+		FROM project_posts 
+		WHERE project_id = ?
+		ORDER BY post_no DESC
+	`);
 	const result = query.all(id);
 	closeDB(db);
 	return result;
