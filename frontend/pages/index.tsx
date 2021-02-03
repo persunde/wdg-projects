@@ -32,7 +32,7 @@ export default function Home() {
 						<br />
 						repo:: github.com/user/repo
 						<br />
-						progress:: sdgsghsghdsfgdfgsdf sfgsdfg sfgd sdg df gdsf g
+						progress:: Lorem ipsum dolor sit amet, consetetur sadipscing elitr
 					</code>
 				</section>
 			</main>
