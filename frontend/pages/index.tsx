@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import Menu from "../components/Menu";
 
 export default function Home() {
@@ -11,7 +12,7 @@ export default function Home() {
 
 			<main>
 				<header>
-					<h1>/wdg/.one</h1>
+					<h1><Link href="/"><a>/wdg/.one</a></Link></h1>
 					<Menu />
 				</header>
 				<section>

@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
+import Link from "next/link";
 import { getAllProjects, getProject, getProjectPosts } from "../../db/database";
 import { ProjectPost, Project } from "../../interface/interface";
 import Menu from "../../components/Menu";
@@ -15,7 +16,7 @@ const ProjectComponent = ({
 	return (
 		<main>
 			<header>
-				<h1>/wdg/.one</h1>
+				<h1><Link href="/"><a>/wdg/.one</a></Link></h1>
 				<Menu />
 			</header>
 			<ProjectDetails projectData={projectData} postData={projectPostList} />

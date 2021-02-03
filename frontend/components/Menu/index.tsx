@@ -4,14 +4,18 @@ const Menu = (props) => {
 	return (
 		<ul>
 			<li>
-				<Link href="/">
-					<a>Home</a>
-				</Link>
-			</li>
-			<li>
 				<Link href="/projects">
 					<a>Projects</a>
 				</Link>
+			</li>
+			<li>
+				<a
+					href="https://boards.4channel.org/g/catalog#s=wdg"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Latest /wdg/
+				</a>
 			</li>
 			<li>
 				<a
