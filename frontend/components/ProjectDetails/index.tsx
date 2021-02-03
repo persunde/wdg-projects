@@ -37,14 +37,14 @@ const ProgressUpdate = ({ post }: ProgressUpdateProps) => {
 
 	return (
 		<div>
-			<div>
+			{ post.image !== "" ? <div>
 				<img
 					className={styles.img}
 					src={`data:image/jpeg;base64,${post.image}`}
 					data-expand={imgExpanded}
 					onClick={() => setImgExpanded(!imgExpanded)}
 				/>
-			</div>
+			</div> : ""}
 			<div>Progress: {post.progress}</div>
 			<div>Date: {post.updated_at}</div>
 		</div>
