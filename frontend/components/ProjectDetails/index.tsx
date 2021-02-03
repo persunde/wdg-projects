@@ -36,17 +36,17 @@ const ProgressUpdate = ({ post }: ProgressUpdateProps) => {
 	const [imgExpanded, setImgExpanded] = useState(false);
 
 	return (
-		<div>
-			{ post.image !== "" ? <div>
-				<img
-					className={styles.img}
-					src={`data:image/jpeg;base64,${post.image}`}
-					data-expand={imgExpanded}
-					onClick={() => setImgExpanded(!imgExpanded)}
-				/>
-			</div> : ""}
-			<div>Progress: {post.progress}</div>
-			<div>Date: {post.updated_at}</div>
+		<div className="progress">
+			<div className="progress-head">Date: {post.updated_at}</div>
+				{ post.image !== "" ? <div>
+					<img
+						className={styles.img}
+						src={`data:image/jpeg;base64,${post.image}`}
+						data-expand={imgExpanded}
+						onClick={() => setImgExpanded(!imgExpanded)}
+					/>
+				</div> : ""}
+				Progress: {post.progress}
 		</div>
 	);
 };
