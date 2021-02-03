@@ -1,10 +1,16 @@
 .img {
 	display: block;
-	max-width: 350px;
+	max-width: 20em;
 	cursor: zoom-in;
 	margin: 0 0 20px;
 
 	&[data-expand="true"] {
-		max-width: none;
+		max-width: 100%;
+	}
+}
+
+@media (max-width: 27.7778em) {
+    .img {
+		max-width: 100%;
 	}
 }
