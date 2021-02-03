@@ -14,8 +14,10 @@ const ProjectComponent = ({
 }: ProjectComponentProps) => {
 	return (
 		<main>
-			<h1>/wdg/ - Web Dev General</h1>
-			<Menu />
+			<header>
+				<h1>/wdg/.one</h1>
+				<Menu />
+			</header>
 			<ProjectDetails projectData={projectData} postData={projectPostList} />
 		</main>
 	);

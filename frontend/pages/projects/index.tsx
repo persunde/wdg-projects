@@ -11,8 +11,10 @@ interface ProjectMainComponentProps {
 const ProjectMainComponent = ({ projectList }: ProjectMainComponentProps) => {
 	return (
 		<main>
-			<h1>/wdg/ - Web Dev General</h1>
-			<Menu />
+			<header>
+				<h1>/wdg/.one</h1>
+				<Menu />
+			</header>
 			<section>
 				<h2>Projects</h2>
 				<ProjectsDetails data={projectList} />

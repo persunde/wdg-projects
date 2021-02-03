@@ -1,16 +1,21 @@
 .table {
-	margin: 0;
-	border-collapse: separate;
+	border-collapse: collapse;
+	width: 100%;
 
 	thead {
-		font-weight: 700;
+		td {
+			border-bottom: .0556em solid #c5c8c6;
+			font-weight: bold;
+		}
+	}
+
+	tbody {
+		tr:nth-child(odd) {
+			background: #242629;
+		}
 	}
 
 	td {
-		border-left: 30px solid transparent;
-
-		&:first-child {
-			border-left: 0;
-		}
+		padding: .2em;
 	}
 }
