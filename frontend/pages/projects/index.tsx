@@ -1,4 +1,5 @@
 import { GetStaticProps } from "next";
+import Link from "next/link";
 import { getAllProjects } from "../../db/database";
 import { Project } from "../../interface/interface";
 import Menu from "../../components/Menu";
@@ -11,8 +12,10 @@ interface ProjectMainComponentProps {
 const ProjectMainComponent = ({ projectList }: ProjectMainComponentProps) => {
 	return (
 		<main>
-			<h1>/wdg/ - Web Dev General</h1>
-			<Menu />
+			<header>
+				<h1><Link href="/"><a>/wdg/.one</a></Link></h1>
+				<Menu />
+			</header>
 			<section>
 				<h2>Projects</h2>
 				<ProjectsDetails data={projectList} />
