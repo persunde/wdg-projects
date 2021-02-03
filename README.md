@@ -26,6 +26,56 @@ Look at the Issues and see if you want to help with any of those.
 
 If you have any ideas you want to add, please open an issue and start developing away. Create a pull-request once you are done and it will hopefully be merged into the repo on the owner / maintainers discretion.
 
+## The two components in this monorepo
+There are two components to run.
+1. The **Crawler**
+	This program will go through the active /wdg/ threads and look for comments that follow the format specified in [How does wdg.one work?](#How-does-wdg.one-work?)
+	Then it will add the data from these comments to the Database
+2. The **Frontend**
+	This is the website. It is fully static (no server side code) and built using Nextjs.
+	When it is built, it gets all the data from the DB and creates the sub-pages for each project that have been fetched by the Crawler.
+
+## Perquisites
+### Crawler:
+* Install Golang >= 1.14 
+	* https://golang.org/doc/install
+* Install the Golang dependencies
+	```sh
+	cd crawler/
+	go get -u ./...
+	#the -u parameter also updates any existing packages
+	```
+### Frontend
+Install Node, and Yarn or NPM:
+* https://www.npmjs.com/get-npm
+	* See section: **Use a Node.js version manager**	
+* https://classic.yarnpkg.com/en/docs/install/
+
+```sh
+cd frontend/
+npm install
+# or
+yarn install
+```
+
+## To run the Crawler
+```sh
+go run main.go
+```
+The program will update the SQLite database database/wdgprojects.db
+
+## To run the Frontend
+```sh
+npm run dev
+# or 
+yarn dev
+```
+
+You can now access the website here:
+```
+http://localhost:3000
+```
+
 # Tech-stack
 ## Scraper
 ### Language:
