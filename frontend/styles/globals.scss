@@ -14,17 +14,16 @@ body {
 	background: #1d1f21;
 	color: #c5c8c6;
 	font: 1.125rem Arial, Helvetica, sans-serif;
-	
 	padding: 1em;
 }
 
 a {
 	color: #81a2be;
 	text-decoration: none;
-}
 
-a:hover {
-	color: #b294bb;
+	&:hover {
+		color: #b294bb;
+	}
 }
 
 h1 {
