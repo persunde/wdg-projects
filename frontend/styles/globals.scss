@@ -41,11 +41,17 @@ h2 {
 	text-align: center;
 }
 
+h3 {
+	color: #b5bd68;
+	font-size: 1.125rem;
+	margin: 1em 0;
+}
+
 code {
 	border-left: .1111em solid #b5bd68;
 	display: block;
-	margin: 1em;
-	padding: 0 1em;
+	margin: 1em 0;
+	padding: .5em 1em;
 	white-space: pre-wrap;
 }
 
@@ -80,6 +86,23 @@ section {
 	border-radius: .1em;
 	margin: 1em 0 10em;
 	padding: 1em;
+}
+
+.progress {
+	margin-bottom: 1.5em;
+
+	&::after {
+		clear: both;
+		content: "";
+		display: table;
+	}
+}
+
+.progress-head {
+	background-color: #242629;
+	margin-bottom: .5em;
+	padding: 0 .5em;
+	text-align: right;
 }
 
 @media (max-width: 27.7778em) {

@@ -32,21 +32,38 @@ interface ProgressUpdateProps {
 	post: ProjectPost;
 }
 
+// Helper function for getDate
+const _leadingZero = (number) => {
+	return ("0" + number).slice(-2);
+}
+
+const getDate = (value) => {
+	const date = new Date(value);
+	const month = _leadingZero(date.getMonth() + 1);
+	const day = _leadingZero(date.getDate());
+	const year = date.getFullYear().toString().substr(-2);
+	const weekday = date.toLocaleDateString("en-US", { weekday: "short" });
+	const hours = _leadingZero(date.getHours());
+	const minutes = _leadingZero(date.getMinutes());
+	const seconds = _leadingZero(date.getSeconds());
+	return `${month}/${day}/${year}(${weekday})${hours}:${minutes}:${seconds}`;
+};
+
 const ProgressUpdate = ({ post }: ProgressUpdateProps) => {
 	const [imgExpanded, setImgExpanded] = useState(false);
 
 	return (
-		<div>
-			{ post.image !== "" ? <div>
-				<img
-					className={styles.img}
-					src={`data:image/jpeg;base64,${post.image}`}
-					data-expand={imgExpanded}
-					onClick={() => setImgExpanded(!imgExpanded)}
-				/>
-			</div> : ""}
-			<div>Progress: {post.progress}</div>
-			<div>Date: {post.updated_at}</div>
+		<div className="progress">
+			<div className="progress-head">Date: {getDate(post.updated_at)}</div>
+				{ post.image !== "" ? <div>
+					<img
+						className={styles.img}
+						src={`data:image/jpeg;base64,${post.image}`}
+						data-expand={imgExpanded}
+						onClick={() => setImgExpanded(!imgExpanded)}
+					/>
+				</div> : ""}
+				Progress: {post.progress}
 		</div>
 	);
 };

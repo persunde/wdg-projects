@@ -1,16 +1,11 @@
 .img {
-	display: block;
-	max-width: 20em;
+	float: left;
+	max-width: 7em;
 	cursor: zoom-in;
-	margin: 0 0 20px;
+	margin: 0 1em .5em 0;
 
 	&[data-expand="true"] {
-		max-width: 100%;
-	}
-}
-
-@media (max-width: 27.7778em) {
-    .img {
+		float: none;
 		max-width: 100%;
 	}
 }
