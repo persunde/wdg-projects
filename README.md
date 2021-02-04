@@ -60,12 +60,14 @@ yarn install
 
 ## To run the Crawler
 ```sh
+# in dir crawler/
 go run main.go
 ```
 The program will update the SQLite database database/wdgprojects.db
 
 ## To run the Frontend
 ```sh
+# in dir frontend/
 npm run dev
 # or 
 yarn dev
