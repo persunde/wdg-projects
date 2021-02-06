@@ -30,7 +30,7 @@ export default function Home() {
 						<br />
 						link:: https://my.website.com
 						<br />
-						repo:: github.com/user/repo
+						repo:: https://github.com/user/repo
 						<br />
 						progress:: Lorem ipsum dolor sit amet, consetetur sadipscing elitr
 					</code>
