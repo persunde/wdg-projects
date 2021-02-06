@@ -2,7 +2,7 @@ all: login build
 
 export DOCKER_BUILDKIT=1
 DB_PATH = $(shell pwd)/database/wdgprojects.db
-VERSION=v0.1
+VERSION=v0.2
 RUN_NAME=wdg-projects-crawler
 
 .PHONY: login
@@ -18,6 +18,7 @@ build:
 
 .PHONY: run
 run:
+	docker kill ${RUN_NAME} | true
 	docker rm ${RUN_NAME} | true
 	docker pull ghcr.io/persunde/wdg-projects/crawler:latest
 	docker run -d --name ${RUN_NAME} --mount src=${DB_PATH},target=/database/wdgprojects.db,type=bind ghcr.io/persunde/wdg-projects/crawler:latest
