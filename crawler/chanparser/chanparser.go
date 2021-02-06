@@ -58,7 +58,7 @@ func FindWebDevGeneralThread(catalogJSON []types.CatalogPageJSON) (latestThread 
 	foundThread := false
 	for _, page := range catalogJSON {
 		for _, thread := range page.Threads {
-			if strings.Contains(thread.Sub, "/wdg/") {
+			if strings.Contains(thread.Sub, "wdg") {
 				if latestThread.No < thread.No {
 					latestThread = thread
 					foundThread = true
