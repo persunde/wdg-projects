@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/PuerkitoBio/goquery"
 	"github.com/persunde/wdg-projects/crawler/types"
 	"github.com/pkg/errors"
-	"golang.org/x/net/html"
 )
 
 var catalogListTechnologyURL = "https://a.4cdn.org/g/catalog.json"
@@ -112,7 +112,7 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 	var postResult types.PostResult
 	postResult.PostNo = post.No
 	foundTitle := false
-	commentList := parseHTMLText(post.Com) // TODO: parseHTMLText() splits on <wbr> (Word Break Opportunity), it should not split. Ignore and remove the tag
+	commentList := parseHTMLText(post.Com)
 	for _, line := range commentList {
 		re := regexp.MustCompile("::(.*?)::")
 		match := re.FindStringSubmatch(line) // If no match, it returns an empty list
@@ -172,24 +172,19 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 
 // parseHTMLText parses HTML as a string and returns the text inside the html tags as a list of strings
 func parseHTMLText(htmlString string) []string {
-	lines := []string{}
-	domDocTest := html.NewTokenizer(strings.NewReader(htmlString))
-	for tokenType := domDocTest.Next(); tokenType != html.ErrorToken; {
-		// TODO: need to check if this token is of type <wbr>, if so then it should be handled as a TextToken
-		// this should fix this issue: https://github.com/persunde/wdg-projects/issues/18
-		if tokenType != html.TextToken {
-			tokenType = domDocTest.Next()
-			continue
-		}
-		TxtContent := strings.TrimSpace(html.UnescapeString(string(domDocTest.Text())))
-		if len(TxtContent) > 0 {
+	p := strings.NewReader(htmlString)
+	doc, _ := goquery.NewDocumentFromReader(p)
 
-			lines = append(lines, TxtContent)
-		}
-		tokenType = domDocTest.Next()
-	}
+	doc.Find("script").Each(func(i int, el *goquery.Selection) {
+		el.Remove()
+	})
 
-	return lines
+	doc.Find("br").Each(func(i int, el *goquery.Selection) {
+		el.ReplaceWithHtml("\n")
+	})
+
+	result := strings.Split(doc.Text(), "\n")
+	return result
 }
 
 func getImageAsBase64(imageID uint, imageExtention string) (string, error) {
