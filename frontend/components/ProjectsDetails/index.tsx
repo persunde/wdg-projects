@@ -7,12 +7,12 @@ interface Props {
 }
 
 const ProjectsDetails = ({ data }: Props) => {
-	const elmenents = data
+	const elements = data
 		.map((project) => ({
 			...project,
 			updated_at_obj: Date.parse(project.updated_at),
 		}))
-		.sort((a, b) => a.updated_at_obj - b.updated_at_obj)
+		.sort((a, b) => b.updated_at_obj - a.updated_at_obj)
 		.map((project) => {
 			return (
 				<tr key={project.id.toString()}>
@@ -36,7 +36,7 @@ const ProjectsDetails = ({ data }: Props) => {
 					<td>Tools</td>
 				</tr>
 			</thead>
-			<tbody>{elmenents}</tbody>
+			<tbody>{elements}</tbody>
 		</table>
 	);
 };
