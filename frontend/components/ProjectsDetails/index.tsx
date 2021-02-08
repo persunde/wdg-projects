@@ -10,10 +10,11 @@ const ProjectsDetails = ({ data }: Props) => {
 	const elements = data
 		.map((project) => ({
 			...project,
-			updated_at_obj: Date.parse(project.updated_at),
+			updated_at_num: Date.parse(project.updated_at),
 		}))
-		.sort((a, b) => b.updated_at_obj - a.updated_at_obj)
+		.sort((a, b) => b.updated_at_num - a.updated_at_num)
 		.map((project) => {
+			const dateStr = new Date(project.updated_at).toLocaleDateString();
 			return (
 				<tr key={project.id.toString()}>
 					<td>
@@ -23,6 +24,7 @@ const ProjectsDetails = ({ data }: Props) => {
 					</td>
 					<td>{project.dev}</td>
 					<td>{project.tools}</td>
+					<td>{dateStr}</td>
 				</tr>
 			);
 		});
@@ -34,6 +36,7 @@ const ProjectsDetails = ({ data }: Props) => {
 					<td>Name</td>
 					<td>Dev</td>
 					<td>Tools</td>
+					<td>Updated</td>
 				</tr>
 			</thead>
 			<tbody>{elements}</tbody>

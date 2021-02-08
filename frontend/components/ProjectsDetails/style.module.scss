@@ -1,10 +1,11 @@
 .table {
 	border-collapse: collapse;
 	width: 100%;
+	word-break: break-word;
 
 	thead {
 		td {
-			border-bottom: .0556em solid #c5c8c6;
+			border-bottom: 0.0556em solid #c5c8c6;
 			font-weight: bold;
 		}
 	}
@@ -16,6 +17,6 @@
 	}
 
 	td {
-		padding: .3em;
+		padding: 0.3em;
 	}
 }
