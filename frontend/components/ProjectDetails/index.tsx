@@ -39,7 +39,7 @@ interface ProgressUpdateProps {
 
 const ProgressUpdate = ({ post }: ProgressUpdateProps) => {
 	const [imgExpanded, setImgExpanded] = useState(false);
-	const dateStr = new Date(post.updated_at).toLocaleString(undefined);
+	const dateStr = new Date(post.updated_at).toLocaleString();
 	const img = post.image ? (
 		<img
 			className={styles.img}
