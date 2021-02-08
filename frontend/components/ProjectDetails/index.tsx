@@ -17,7 +17,12 @@ const ProjectDetails = ({ projectData, postData }) => {
 			<h2>{projectData.title}</h2>
 			<h3>Project details</h3>
 			<div>Developer: {projectData.dev}</div>
-			<div>Repo: {projectData.repo}</div>
+			<div>
+				Repo:{" "}
+				<a target="_blank" href={projectData.repo}>
+					{projectData.repo}
+				</a>
+			</div>
 			<div>Tools: {projectData.tools}</div>
 			<div>
 				Link: <a href={projectData.link}>{projectData.link}</a>
@@ -35,7 +40,7 @@ interface ProgressUpdateProps {
 // Helper function for getDate
 const _leadingZero = (number) => {
 	return ("0" + number).slice(-2);
-}
+};
 
 const getDate = (value) => {
 	const date = new Date(value);
@@ -55,15 +60,19 @@ const ProgressUpdate = ({ post }: ProgressUpdateProps) => {
 	return (
 		<div className="progress">
 			<div className="progress-head">Date: {getDate(post.updated_at)}</div>
-				{ post.image !== "" ? <div>
+			{post.image !== "" ? (
+				<div>
 					<img
 						className={styles.img}
 						src={`data:image/jpeg;base64,${post.image}`}
 						data-expand={imgExpanded}
 						onClick={() => setImgExpanded(!imgExpanded)}
 					/>
-				</div> : ""}
-				Progress: {post.progress}
+				</div>
+			) : (
+				""
+			)}
+			Progress: {post.progress}
 		</div>
 	);
 };
