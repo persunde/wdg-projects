@@ -118,6 +118,9 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 		match := re.FindStringSubmatch(line) // If no match, it returns an empty list
 		if len(match) > 0 {
 			postResult.Title = strings.TrimSpace(match[1])
+			if strings.Contains(postResult.Title, "my-project-title") {
+				continue
+			}
 			foundTitle = true
 		}
 		if strings.Contains(line, "dev::") {
