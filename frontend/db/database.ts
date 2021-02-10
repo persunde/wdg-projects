@@ -16,11 +16,31 @@ function closeDB(db: Database) {
 	db.close();
 }
 
-interface QueryID {
-	id: Number;
+// Fix date formats to parse correctly across all browsers
+// Safari deskop and mobile won't parse how it comes from the DB
+function fixDates(list: Project[]): Project[];
+function fixDates(list: ProjectPost[]): ProjectPost[] {
+	return list.map((item) => ({
+		...item,
+		created_at: new Date(item.created_at).toISOString(),
+		updated_at: new Date(item.updated_at).toISOString(),
+	}));
 }
 
-export function getAllProjectIDs(): Number[] {
+function fixDate(item: Project): Project;
+function fixDate(item: ProjectPost): ProjectPost {
+	return {
+		...item,
+		created_at: new Date(item.created_at).toISOString(),
+		updated_at: new Date(item.updated_at).toISOString(),
+	};
+}
+
+interface QueryID {
+	id: number;
+}
+
+export function getAllProjectIDs(): number[] {
 	const db = openDB();
 	const query = db.prepare("SELECT ID FROM project_posts");
 	const result = query.all();
@@ -36,7 +56,7 @@ export function getAllProjects(): Project[] {
 	const query = db.prepare("SELECT * FROM projects");
 	const result = query.all();
 	closeDB(db);
-	return result;
+	return fixDates(result);
 }
 
 export function getProjectPosts(id: number): ProjectPost[] {
@@ -49,14 +69,14 @@ export function getProjectPosts(id: number): ProjectPost[] {
 	`);
 	const result = query.all(id);
 	closeDB(db);
-	return result;
+	return fixDates(result);
 }
 
 export function getProject(id: number): Project {
 	const db = openDB();
 	const query = db.prepare("SELECT * FROM projects WHERE id = ?");
-	const result = query.get(id);
+	const result = query.get(id) as Project;
 	closeDB(db);
 
-	return result;
+	return fixDate(result);
 }
