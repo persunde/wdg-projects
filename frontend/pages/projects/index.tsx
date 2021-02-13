@@ -26,10 +26,6 @@ const ProjectMainComponent = ({ projectList }: ProjectMainComponentProps) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
 	const projectList: Project[] = getAllProjects();
-	projectList.forEach(project => {
-		const latestUpdate = getLatestUpdateOnProject(project.id)
-		project.updated_at = latestUpdate
-	})
 
 	return {
 		props: {

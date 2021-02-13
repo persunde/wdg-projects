@@ -54,8 +54,15 @@ export function getAllProjectIDs(): number[] {
 export function getAllProjects(): Project[] {
 	const db = openDB();
 	const query = db.prepare("SELECT * FROM projects");
-	const result = query.all();
+	const result: Project[] = query.all();
 	closeDB(db);
+
+	result.forEach(project => {
+		const latestUpdate = getLatestUpdateOnProject(project.id)
+		project.updated_at = latestUpdate
+	})
+
+	console.log(result[0].title, result[0].updated_at)
 	return fixDates(result);
 }
 
@@ -77,6 +84,9 @@ export function getProject(id: number): Project {
 	const query = db.prepare("SELECT * FROM projects WHERE id = ?");
 	const result = query.get(id) as Project;
 	closeDB(db);
+
+	const latestUpdate = getLatestUpdateOnProject(result.id)
+	result.updated_at = latestUpdate
 
 	return fixDate(result);
 }
