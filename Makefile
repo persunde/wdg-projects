@@ -2,7 +2,7 @@ all: login build
 
 export DOCKER_BUILDKIT=1
 DB_PATH = $(shell pwd)/database/wdgprojects.db
-VERSION=v0.3
+VERSION=v0.4
 RUN_NAME=wdg-projects-crawler
 
 .PHONY: login
