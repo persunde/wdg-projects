@@ -1,6 +1,6 @@
 import { GetStaticProps } from "next";
 import Link from "next/link";
-import { getAllProjects } from "../../db/database";
+import { getAllProjects, getLatestUpdateOnProject } from "../../db/database";
 import { Project } from "../../interface/interface";
 import Menu from "../../components/Menu";
 import ProjectsDetails from "../../components/ProjectsDetails";
@@ -26,6 +26,10 @@ const ProjectMainComponent = ({ projectList }: ProjectMainComponentProps) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
 	const projectList: Project[] = getAllProjects();
+	projectList.forEach(project => {
+		const latestUpdate = getLatestUpdateOnProject(project.id)
+		project.updated_at = latestUpdate
+	})
 
 	return {
 		props: {
