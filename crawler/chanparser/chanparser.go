@@ -20,6 +20,16 @@ var catalogListTechnologyURL = "https://a.4cdn.org/g/catalog.json"
 var threadTechnologyURL = "https://a.4cdn.org/g/thread/%d.json"
 var imageURL = "https://i.4cdn.org/g/%d%s"
 
+func isBannedString(line string) bool {
+	for _, banned := range ignoreStrings {
+		if strings.Contains(banned, line) {
+			return true
+		}
+	}
+
+	return false
+}
+
 // GetWDGProjectPosts returns a list of processed /wdg/ posts with the project content
 func GetWDGProjectPosts() []types.PostResult {
 	var catalogJSON []types.CatalogPageJSON
@@ -118,38 +128,59 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 		match := re.FindStringSubmatch(line) // If no match, it returns an empty list
 		if len(match) > 0 {
 			postResult.Title = strings.TrimSpace(match[1])
-			if strings.Contains(postResult.Title, "my-project-title") {
-				continue
+			if isBannedString(postResult.Title) {
+				customErr := errors.Errorf("Found banned word:", postResult.Title)
+				return postResult, customErr
 			}
 			foundTitle = true
 		}
 		if strings.Contains(line, "dev::") {
 			devArr := strings.Split(line, "dev::")
 			if len(devArr) > 1 {
+				if isBannedString(postResult.Title) {
+					customErr := errors.Errorf("Found banned word:", postResult.Title)
+					return postResult, customErr
+				}
 				postResult.Dev = strings.TrimSpace(devArr[1])
 			}
 		}
 		if strings.Contains(line, "link::") {
 			linkArr := strings.Split(line, "link::")
 			if len(linkArr) > 1 {
+				if isBannedString(postResult.Title) {
+					customErr := errors.Errorf("Found banned word:", postResult.Title)
+					return postResult, customErr
+				}
 				postResult.Link = strings.TrimSpace(linkArr[1])
 			}
 		}
 		if strings.Contains(line, "tools::") {
 			toolsArr := strings.Split(line, "tools::")
 			if len(toolsArr) > 1 {
+				if isBannedString(postResult.Title) {
+					customErr := errors.Errorf("Found banned word:", postResult.Title)
+					return postResult, customErr
+				}
 				postResult.Tools = strings.TrimSpace(toolsArr[1])
 			}
 		}
 		if strings.Contains(line, "progress::") {
 			progressArr := strings.Split(line, "progress::")
 			if len(progressArr) > 1 {
+				if isBannedString(postResult.Title) {
+					customErr := errors.Errorf("Found banned word:", postResult.Title)
+					return postResult, customErr
+				}
 				postResult.Progress = progressArr[1]
 			}
 		}
 		if strings.Contains(line, "repo::") {
 			repoArr := strings.Split(line, "repo::")
 			if len(repoArr) > 1 {
+				if isBannedString(postResult.Title) {
+					customErr := errors.Errorf("Found banned word:", postResult.Title)
+					return postResult, customErr
+				}
 				postResult.Repo = strings.TrimSpace(repoArr[1])
 			}
 		}
