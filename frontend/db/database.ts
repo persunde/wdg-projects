@@ -62,7 +62,6 @@ export function getAllProjects(): Project[] {
 		project.updated_at = latestUpdate
 	})
 
-	console.log(result[0].title, result[0].updated_at)
 	return fixDates(result);
 }
 
