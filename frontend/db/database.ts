@@ -60,3 +60,18 @@ export function getProject(id: number): Project {
 
 	return result;
 }
+
+export function getLatestUpdateOnProject(id: number): string {
+	const db = openDB();
+	const query = db.prepare(`
+		SELECT updated_at
+		FROM project_posts 
+		WHERE project_id = ?
+		ORDER BY id DESC
+		LIMIT 1
+	`);
+	const result = query.get(id);
+	closeDB(db);
+	
+	return result.updated_at
+}
