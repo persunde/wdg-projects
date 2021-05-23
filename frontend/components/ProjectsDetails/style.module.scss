@@ -20,3 +20,47 @@
 		padding: 0.3em;
 	}
 }
+
+.date {
+	white-space: nowrap;
+}
+
+.devCol {
+	display: none;
+
+	@media screen and (min-width: 850px) {
+		display: table-cell;
+	}
+}
+
+.toolsCol {
+	display: none;
+
+	@media screen and (min-width: 480px) {
+		display: table-cell;
+	}
+}
+
+.dateCol {
+	display: none;
+
+	@media screen and (min-width: 600px) {
+		display: table-cell;
+	}
+}
+
+.filter {
+	display: flex;
+	justify-content: center;
+	margin: 0 0 1.4em;
+
+	input {
+		display: block;
+		width: 100%;
+		max-width: 200px;
+		font-size: 1rem;
+		background: #404040;
+		border: 1px solid #737373;
+		color: inherit;
+	}
+}
