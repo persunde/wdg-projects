@@ -1,3 +1,4 @@
+import Head from "next/head";
 import "../styles/globals.scss";
 
 function MyApp({ Component, pageProps }) {
@@ -8,14 +9,18 @@ function MyApp({ Component, pageProps }) {
 				async
 				defer
 				data-website-id="d28a4815-01a3-4a2a-87fc-b7d472516db8"
-				src="https://analytics.nordictechjobs.com/umami.js"
+				src="https://umami.nordictechjobs.com/umami.js"
 			></script>
 		);
 	}
 
 	return (
 		<>
-			{analytics}
+			<Head>
+				<title>/wdg/.one</title>
+				<link rel="icon" href="/favicon.ico" />
+				{analytics}
+			</Head>
 			<Component {...pageProps} />
 		</>
 	);
