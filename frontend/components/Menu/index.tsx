@@ -11,7 +11,9 @@ const Menu = (props) => {
 			<li>
 				<a
 					href="#"
-					onClick={() => {
+					onClick={(e) => {
+                        e.preventDefault();
+
 						fetch(
 							"https://raw.githubusercontent.com/bingsoo420/4ch-general/master/output/mappings.json"
 						)
@@ -22,7 +24,6 @@ const Menu = (props) => {
 								}
 							});
 					}}
-					target="_blank"
 					rel="noopener noreferrer"
 				>
 					Latest /wdg/
