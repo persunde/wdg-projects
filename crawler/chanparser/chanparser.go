@@ -4,7 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"regexp"
@@ -43,6 +43,9 @@ func GetWDGProjectPosts() []types.PostResult {
 	}
 	threadID := catalogThread.No
 	thread, err := FetchThreadWithReplies(threadID)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
 
 	postsWithProjectContent := ParseWdgThread(thread)
 
@@ -98,6 +101,9 @@ func FetchThreadWithReplies(threadID uint) (types.ThreadJSON, error) {
 	}
 	defer res.Body.Close()
 	err = json.NewDecoder(res.Body).Decode(&target)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
 
 	return target, nil
 }
@@ -129,7 +135,7 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 		if len(match) > 0 {
 			postResult.Title = strings.TrimSpace(match[1])
 			if isBannedString(postResult.Title) {
-				customErr := errors.Errorf("Found banned word:", postResult.Title)
+				customErr := errors.Errorf("Found banned word: %s", postResult.Title)
 				return postResult, customErr
 			}
 			foundTitle = true
@@ -139,7 +145,7 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 			if len(devArr) > 1 {
 				postResult.Dev = strings.TrimSpace(devArr[1])
 				if isBannedString(postResult.Dev) {
-					customErr := errors.Errorf("Found banned word:", postResult.Dev)
+					customErr := errors.Errorf("Found banned word: %s", postResult.Dev)
 					return postResult, customErr
 				}
 			}
@@ -149,7 +155,7 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 			if len(linkArr) > 1 {
 				postResult.Link = strings.TrimSpace(linkArr[1])
 				if isBannedString(postResult.Link) {
-					customErr := errors.Errorf("Found banned word:", postResult.Link)
+					customErr := errors.Errorf("Found banned word: %s", postResult.Link)
 					return postResult, customErr
 				}
 			}
@@ -159,7 +165,7 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 			if len(toolsArr) > 1 {
 				postResult.Tools = strings.TrimSpace(toolsArr[1])
 				if isBannedString(postResult.Tools) {
-					customErr := errors.Errorf("Found banned word:", postResult.Tools)
+					customErr := errors.Errorf("Found banned word: %s", postResult.Tools)
 					return postResult, customErr
 				}
 			}
@@ -169,7 +175,7 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 			if len(progressArr) > 1 {
 				postResult.Progress = progressArr[1]
 				if isBannedString(postResult.Progress) {
-					customErr := errors.Errorf("Found banned word:", postResult.Progress)
+					customErr := errors.Errorf("Found banned word: %s", postResult.Progress)
 					return postResult, customErr
 				}
 			}
@@ -179,7 +185,7 @@ func ParsePost(post types.PostJSON) (types.PostResult, error) {
 			if len(repoArr) > 1 {
 				postResult.Repo = strings.TrimSpace(repoArr[1])
 				if isBannedString(postResult.Repo) {
-					customErr := errors.Errorf("Found banned word:", postResult.Repo)
+					customErr := errors.Errorf("Found banned word: %s", postResult.Repo)
 					return postResult, customErr
 				}
 			}
@@ -239,7 +245,7 @@ func getImageSource(imageID uint, imageExtention string) ([]byte, error) {
 		return nil, err
 	}
 	defer res.Body.Close()
-	imageSource, err := ioutil.ReadAll(res.Body)
+	imageSource, err := io.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
 	}
