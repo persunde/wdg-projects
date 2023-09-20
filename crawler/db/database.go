@@ -10,7 +10,7 @@ import (
 )
 
 var databasePath string = "../database/wdgprojects.db"
-var connection *gorm.DB = nil
+var connection *gorm.DB
 
 // TODO: replace this with a config for prod, test etc.
 func getDatabasePath() string {
@@ -36,6 +36,9 @@ func Close(db *gorm.DB) error {
 
 // ConnectWithLogLevel returns a connection to the database with the specified logLevel, but that is only set the first time the connection is created
 func ConnectWithLogLevel(logLevel logger.LogLevel) (*gorm.DB, error) {
+	if connection != nil {
+		return connection, nil
+	}
 
 	databasePath := getDatabasePath()
 	// github.com/mattn/go-sqlite3
