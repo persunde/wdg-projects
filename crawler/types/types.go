@@ -45,7 +45,7 @@ type PostJSON struct {
 	Time           uint   //Unix timestamp
 	ImageID        uint   `json:"Tim"`
 	ImageExtention string `json:"ext"`
-	Name           uint   //poster name
+	Name           string //poster name
 	Com            string //comment
 	Replies        uint
 	Bumplimit      uint //?Maybe set to uint? is 0 or 1
